@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OB-GYN MCQ Review</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,serif;background:#fdf8f5;color:#1a1a2e;min-height:100vh}
+
+.header{background:#1a1a2e;padding:18px 24px;position:sticky;top:0;z-index:100;border-bottom:3px solid #c9616a}
+.header-inner{max-width:980px;margin:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.header h1{font-size:1.3rem;color:#fff;font-style:italic}
+.header h1 span{color:#c9616a;font-style:normal;font-weight:bold}
+.hstats{display:flex;gap:12px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:0.75rem;color:#ccc;font-family:Arial,sans-serif}
+.stat b{color:#d4a843}
+
+.layout{max-width:980px;margin:0 auto;padding:20px 16px 60px;display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+
+.sidebar{position:sticky;top:76px;background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(0,0,0,0.08);overflow:hidden;border:1px solid #f0d0d2}
+.stitle{background:#c9616a;color:#fff;font-size:0.68rem;font-weight:bold;letter-spacing:0.12em;text-transform:uppercase;padding:10px 14px;font-family:Arial,sans-serif}
+.lbtn{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;padding:10px 14px;cursor:pointer;font-size:0.78rem;color:#4a4a6a;text-align:left;border-bottom:1px solid #f5f0f0;transition:background 0.15s;font-family:Arial,sans-serif}
+.lbtn:hover{background:#fdf0f0;color:#9b3a44}
+.lbtn.active{background:#fdf0f0;color:#9b3a44;font-weight:bold;border-left:3px solid #c9616a}
+.lnum{background:#fde8e9;color:#c9616a;font-weight:900;font-size:0.65rem;min-width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:Arial,sans-serif}
+.lbtn.active .lnum{background:#c9616a;color:#fff}
+.lscore{margin-left:auto;font-size:0.68rem;color:#2d7a4f;font-weight:bold;font-family:Arial,sans-serif}
+
+.content{min-width:0}
+.lsec{display:none}
+.lsec.active{display:block;animation:fi 0.25s ease}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+.lhead{background:#1a1a2e;border-radius:12px 12px 0 0;padding:18px 22px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px}
+.lhead h2{font-size:1.05rem;color:#fff}
+.lhead h2 em{color:#c9616a;font-style:normal}
+.mbadge{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#ddd;font-size:0.7rem;padding:3px 10px;border-radius:16px;font-family:Arial,sans-serif}
+
+.pbwrap{background:rgba(255,255,255,0.08);height:5px}
+.pb{height:5px;background:linear-gradient(90deg,#c9616a,#d4a843);transition:width 0.35s ease;width:0%}
+
+.qarea{background:#fff;border-radius:0 0 12px 12px;padding:20px;box-shadow:0 2px 16px rgba(0,0,0,0.08);border:1px solid #f0d0d2;border-top:none}
+
+.summary{display:none;background:#1a1a2e;border-radius:10px;padding:14px 18px;margin-bottom:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.summary.vis{display:flex}
+.slabel{color:#aaa;font-size:0.75rem;font-family:Arial,sans-serif}
+.snum{font-size:1.8rem;color:#d4a843;font-weight:900;line-height:1}
+.spct{color:#888;font-size:0.7rem;font-family:Arial,sans-serif}
+.sbreakdown{display:flex;gap:12px}
+.sbitem{text-align:center}
+.sbnum{font-weight:bold;font-size:1rem;font-family:Arial,sans-serif}
+.sbc{color:#6fcf97}
+.sbw{color:#c9616a}
+.sblbl{font-size:0.62rem;color:#888;text-transform:uppercase;letter-spacing:0.06em;font-family:Arial,sans-serif}
+.rbtn{background:#c9616a;color:#fff;border:none;border-radius:7px;padding:7px 14px;font-weight:bold;font-size:0.78rem;cursor:pointer;font-family:Arial,sans-serif;transition:background 0.15s}
+.rbtn:hover{background:#9b3a44}
+
+.qcard{border:1.5px solid rgba(0,0,0,0.08);border-radius:10px;padding:16px;margin-bottom:12px;background:#fafafa;transition:border-color 0.2s}
+.qcard.ok{border-color:#2d7a4f;background:#f0faf4}
+.qcard.bad{border-color:#9b3a44;background:#fdf0f0}
+.qhdr{display:flex;gap:8px;align-items:flex-start;margin-bottom:12px}
+.qnum{background:#c9616a;color:#fff;font-weight:900;font-size:0.65rem;min-width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-family:Arial,sans-serif}
+.qtxt{font-size:0.88rem;font-weight:normal;color:#1a1a2e;line-height:1.55;font-family:Arial,sans-serif}
+
+.opts{display:flex;flex-direction:column;gap:6px}
+.obtn{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid rgba(0,0,0,0.1);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:0.82rem;color:#4a4a6a;text-align:left;transition:all 0.15s;width:100%;font-family:Arial,sans-serif}
+.obtn:hover:not(:disabled){border-color:#c9616a;background:#fdf0f0;color:#9b3a44}
+.obtn:disabled{cursor:default}
+.obtn.ok{background:#e8f5ee;border-color:#2d7a4f;color:#2d7a4f;font-weight:bold}
+.obtn.bad{background:#fdf0f0;border-color:#9b3a44;color:#9b3a44;font-weight:bold}
+.obtn.show{background:#e8f5ee;border-color:#2d7a4f;color:#2d7a4f}
+.oletter{font-weight:900;font-size:0.68rem;min-width:18px;height:18px;border-radius:4px;background:rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:Arial,sans-serif}
+.obtn.ok .oletter,.obtn.show .oletter{background:#2d7a4f;color:#fff}
+.obtn.bad .oletter{background:#9b3a44;color:#fff}
+
+.fb{margin-top:8px;font-size:0.75rem;font-weight:bold;display:none;font-family:Arial,sans-serif}
+.fb.ok{color:#2d7a4f;display:block}
+.fb.bad{color:#9b3a44;display:block}
+
+@media(max-width:660px){
+.layout{grid-template-columns:1fr}
+.sidebar{position:static}
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>OB-GYN <span>MCQ</span> Review</h1>
+    <div class="hstats">
+      <div class="stat">Total: <b id="tq">0</b> Q</div>
+      <div class="stat">Answered: <b id="ta">0</b></div>
+      <div class="stat">Correct: <b id="tc">0</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="stitle">📚 Lectures</div>
+    <div id="sbbtns"></div>
+  </aside>
+  <main class="content" id="ca"></main>
+</div>
+
+<script>
+var L=[
+{id:1,title:"Diabetes Mellitus in Pregnancy",questions:[
+{q:"How many types of DM are there in pregnancy?",o:["2 types","3 types","4 types","5 types"],a:1},
+{q:"What is the prevalence of DM in pregnancy?",o:["1-2%","3-9%","10-15%","20-25%"],a:1},
+{q:"What is the first metabolic disorder in carbohydrate metabolism in DM?",o:["Lipolytic disorder","Protein metabolism disorder","Primary metabolic disorder in carbs","Non-gluconeogenesis"],a:2},
+{q:"What is the second metabolic disorder in DM affecting proteins?",o:["Lipolytic disorder","Protein metabolism disorder","Gluconeogenesis","Glycogenolysis"],a:1},
+{q:"What is the third metabolic disorder in DM?",o:["Lipolytic disorder","Non-gluconeogenesis","Protein synthesis increase","Glycogen storage"],a:1},
+{q:"What is the sequence of events starting from maternal hyperglycemia?",o:["Maternal hyperglycemia → Fetal hypoglycemia → Hypoinsulinemia","Maternal hyperglycemia → Fetal hyperglycemia → Hyperinsulinemia","Maternal hypoglycemia → Fetal hyperglycemia → Hyperinsulinemia","Maternal hyperglycemia → Fetal hyperglycemia → Hypoinsulinemia"],a:1},
+{q:"What does fetal hyperinsulinemia cause?",o:["Microsomic fetus","Macrosomic fetus","Normal fetal growth","IUGR"],a:1},
+{q:"Why does insulin cause macrosomia?",o:["Insulin is a catabolic hormone","Insulin is an anabolic hormone","Insulin has no effect on growth","Insulin causes fat breakdown"],a:1},
+{q:"Which body part shows increased growth due to insulin receptor upregulation causing shoulder dystocia?",o:["Head","Shoulder","Abdomen","Legs"],a:1},
+{q:"What complication occurs due to increased shoulder size in diabetic pregnancy?",o:["Cephalo-pelvic disproportion","Shoulder dystocia","Breech presentation","Cord prolapse"],a:1},
+{q:"Is it a rule that every diabetic woman will have a macrosomic fetus?",o:["Yes, always","No, not a rule","Only in Type 1 DM","Only in Type 2 DM"],a:1},
+{q:"What causes decreased fetal growth in some diabetic pregnancies?",o:["Genetic predisposition and chromosome defects","Too much insulin","Good glucose control","Maternal obesity"],a:0},
+{q:"What does blood perfusion of placenta depend on?",o:["Blood pressure","Glucose level","Oxygen level","Maternal age"],a:1},
+{q:"What happens with any sharp increase or decrease in placental glucose?",o:["Placental hypertrophy","Placental shutdown → Sudden IUFD","Improved placental function","No effect"],a:1},
+{q:"What type of pneumocyte is affected by hypoxia in DM pregnancy?",o:["Type 1 pneumocyte","Type 2 pneumocyte","Type 3 pneumocyte","All types"],a:1},
+{q:"What is the function of type 2 pneumocyte?",o:["Gas exchange","Surfactant synthesis","Phagocytosis","Mucus secretion"],a:1},
+{q:"What does surfactant synthesis depend on?",o:["Blood glucose","Blood oxygen","Blood pressure","Maternal nutrition"],a:0},
+{q:"What condition leads to hyperbilirubinemia in neonates of diabetic mothers?",o:["Anemia","Polycythemia","Thrombocytopenia","Leukopenia"],a:1},
+{q:"What are the features of polycythemia in neonates?",o:["Hypobilirubinemia + cyanosis","Hyperbilirubinemia + cyanosis","Normal bilirubin + normal color","Hypoglycemia only"],a:1},
+{q:"What is the incidence of congenital anomalies in diabetic pregnancy?",o:["0.01%","0.03%","0.3%","3%"],a:1},
+{q:"What does DNA code need for proper function?",o:["High blood glucose","Ideal blood glucose level","Low blood glucose","Variable glucose levels"],a:1},
+{q:"What neural defect is associated with DM in pregnancy?",o:["Anencephaly","Spina bifida","Hydrocephalus","Microcephaly"],a:1},
+{q:"What cardiac defects are associated with DM in pregnancy?",o:["ASD/VSD","Tetralogy of Fallot","Coarctation of aorta","Patent ductus arteriosus"],a:0},
+{q:"What renal anomalies are associated with DM in pregnancy?",o:["Renal agenesis","Renal abnormalities (general)","Nephrotic syndrome","Glomerulonephritis"],a:1},
+{q:"What is the most specific congenital anomaly #1 in DM pregnancy?",o:["Neural tube defects","Caudal regression syndrome","Cardiac defects","Renal agenesis"],a:1},
+{q:"What is the most specific congenital anomaly #2 in DM pregnancy?",o:["Caudal regression","Sacral agenesis","Spina bifida","Anencephaly"],a:1},
+{q:"Why is the immune system of the fetus prone to sepsis?",o:["Depends on low glucose","Depends on high glucose","Independent of glucose","Depends on maternal antibodies only"],a:1},
+{q:"What metabolic condition is the newborn of diabetic mother prone to?",o:["Hyperglycemia","Hypoglycemia","Normal glucose","Glucose intolerance only"],a:1},
+{q:"What causes neonatal hypoglycemia in infants of diabetic mothers?",o:["Persistent hypoinsulinemia","Persistent hyperinsulinemia","Insulin deficiency","Maternal hypoglycemia"],a:1},
+{q:"Why is the newborn hypocalcemic?",o:["Calcium metabolism depends on ideal blood glucose","Calcium deficiency in mother","Vitamin D deficiency","Parathyroid dysfunction"],a:0},
+{q:"What other electrolyte imbalance occurs in newborns of diabetic mothers?",o:["Hypernatremia","Hypomagnesemia","Hyperkalemia","Hypochloremia"],a:1},
+{q:"At what gestational ages does miscarriage commonly occur in DM?",o:["12, 20, 28 weeks","12, 24, 28 weeks","16, 24, 32 weeks","20, 28, 36 weeks"],a:1},
+{q:"What is the cutoff for miscarriage vs. preterm delivery in DM?",o:["< 20 weeks","< 25 weeks","< 28 weeks","< 32 weeks"],a:1},
+{q:"What is the weight cutoff for miscarriage in DM?",o:["< 250 gm","< 500 gm","< 1000 gm","< 1500 gm"],a:1},
+{q:"What complication is associated with glucose and vascular form in DM pregnancy?",o:["Preeclampsia","Eclampsia","Gestational hypertension","Chronic hypertension"],a:0},
+{q:"What causes vasospasm in pregnant diabetic women?",o:["Hypoglycemia","Vascular form of preeclampsia","Non-vascular form","Normal pregnancy changes"],a:1},
+{q:"What is another maternal complication in DM pregnancy?",o:["Post-term labor","Preterm labor","Prolonged labor","Precipitate labor"],a:1},
+{q:"What causes postpartum hemorrhage in diabetic mothers?",o:["Underdistended uterus","Overdistended uterus → rupture of blood sinuses","Normal uterine contraction","Uterine atony only"],a:1},
+{q:"Why is strong uterine contraction needed after delivery in DM?",o:["To prevent infection","To close the blood sinuses","To reduce pain","To prevent thrombosis"],a:1},
+{q:"What causes atonia in postpartum diabetic mothers?",o:["Well-regulated blood glucose","Not regulated blood glucose levels","Normal glucose levels","Insulin overdose"],a:1},
+{q:"What is another maternal complication in DM pregnancy (miscarriage)?",o:["Ectopic pregnancy","Abortion","Molar pregnancy","Placenta previa"],a:1},
+{q:"What are the pregnancy effects on metabolism in DM?",o:["Anti-diabetogenic only","Diabetogenic, lipolytic, and gluconeogenic","Only lipolytic","Only gluconeogenic"],a:1},
+{q:"What metabolic effect is contraindicated in DM pregnancy?",o:["Diabetogenic","Lipolytic","Gluconeogenesis","Glycolysis"],a:2},
+{q:"When is screening done for T1DM in pregnancy?",o:["24-28 weeks","From the start","Third trimester only","Postpartum only"],a:1},
+{q:"When is screening done for GDM?",o:["From the start","24-28 weeks","32-36 weeks","Postpartum only"],a:1},
+{q:"Why is screening done at 24-28 weeks for GDM?",o:["Due to decreased pregnancy hormones","Due to increased pregnancy hormones causing insulin resistance","Due to fetal growth","Due to placental aging"],a:1},
+{q:"What is the purpose of screening?",o:["To treat all women","To pick up cases among population","To prevent pregnancy","To diagnose T1DM only"],a:1},
+{q:"What is the glucose load for one-step test?",o:["25 gm","50 gm","75 gm","100 gm"],a:2},
+{q:"What is the glucose load for first step of two-step test?",o:["25 gm","50 gm","75 gm","100 gm"],a:1},
+{q:"What is the glucose load for second step of two-step test?",o:["50 gm","75 gm","100 gm","150 gm"],a:2},
+{q:"What is the normal fasting glucose range?",o:["60-90 mg/dL","74-110 mg/dL","90-120 mg/dL","100-140 mg/dL"],a:1},
+{q:"What is the diagnostic criteria for frank DM (any reading)?",o:["> 126 mg/dL","> 180 mg/dL","> 200 mg/dL","> 250 mg/dL"],a:2},
+{q:"What types of glucose readings are used for DM diagnosis?",o:["Fasting only","Fasting, random, post-prandial","Post-prandial only","Random only"],a:1},
+{q:"What is the normal fasting blood sugar (FBS) for pregnant women?",o:["< 85 mg/dL","< 95 mg/dL","< 105 mg/dL","< 120 mg/dL"],a:1},
+{q:"What is the 1-hour glucose cutoff in 3-hour glucose tolerance test?",o:["< 140 mg/dL","< 155 mg/dL","< 180 mg/dL","< 200 mg/dL"],a:2},
+{q:"What is the 2-hour glucose cutoff in 3-hour glucose tolerance test?",o:["< 140 mg/dL","< 155 mg/dL","< 180 mg/dL","< 200 mg/dL"],a:1},
+{q:"What is the 3-hour glucose cutoff in 3-hour glucose tolerance test?",o:["< 120 mg/dL","< 140 mg/dL","< 155 mg/dL","< 180 mg/dL"],a:1},
+{q:"What is the best liver function test?",o:["ALT","AST","Prothrombin","Bilirubin"],a:2},
+{q:"What is the best renal function test?",o:["Blood urea","Serum creatinine","Creatinine clearance","Urine analysis"],a:2},
+{q:"What fundal examination is done in DM pregnancy?",o:["Fundal height","Fundal examination (for retinopathy)","Fundal pressure","Fundal massage"],a:1},
+{q:"What is monitored for fetal growth?",o:["Maternal weight","Fetal growth","Placental thickness","Amniotic fluid only"],a:1},
+{q:"What assesses fetal wellbeing?",o:["CTG only","Biophysical profile","Ultrasound only","Maternal kick count only"],a:1},
+{q:"What indices are used for fetal monitoring?",o:["Doppler indices","CTG indices","Biochemical indices","Clinical indices only"],a:0},
+{q:"How is insulin dose calculated?",o:["Based on postprandial glucose only","Fasting glucose, weight of mother, and trimester divided by 5","Random glucose only","HbA1c only"],a:1},
+{q:"What is the precaution regarding insulin before C-section?",o:["Increase insulin","Insulin prior to C/S due to increased cortisol on stress","Stop insulin","No change in insulin"],a:1},
+{q:"What can happen if insulin is not adjusted before C-section?",o:["Hypoglycemia","Hyperglycemia → infection","Normal glucose","No effect"],a:1},
+{q:"What is the best contraceptive method for diabetic women?",o:["Oral contraceptives only","IUD + umbrella of antibiotics","Tubal ligation only","Barrier methods only"],a:1},
+{q:"What is required with oral contraceptives in diabetic women?",o:["No monitoring needed","Strict glucose monitoring","Monthly HbA1c only","Yearly check-up only"],a:1},
+{q:"What is another contraceptive option mentioned?",o:["IUD only","Tubal ligation","Barrier methods","Natural family planning"],a:1},
+{q:"Why is follow-up important after GDM pregnancy?",o:["No risk of future DM","Can turn into Type 2 DM","Only for next pregnancy","For weight loss only"],a:1},
+{q:"What type of screening is used post-GDM?",o:["1-hour fasting","3-hour fasting","Random glucose","HbA1c"],a:1},
+{q:"What is the incidence of pregnant women getting GDM?",o:["1%","3%","5%","10%"],a:1},
+{q:"Which type of DM/GDM is most dangerous?",o:["Type 1 DM","Type 2 DM","Type 1 / GDM","Pre-diabetes"],a:2},
+{q:"What are the types of insulin based on duration?",o:["Short, intermediate, long, ultralong","Rapid, short, intermediate","Short, long only","Intermediate, long only"],a:0},
+{q:"Which insulin type acts quickly?",o:["Long-acting","Short-acting","Ultralong-acting","Intermediate-acting"],a:1},
+{q:"Which insulin type has intermediate duration?",o:["Short-acting","Intermediate-acting","Long-acting","Rapid-acting"],a:1},
+{q:"Which insulin type has prolonged duration?",o:["Short-acting","Long-acting","Rapid-acting","Intermediate-acting"],a:1},
+{q:"Which insulin type has the longest duration?",o:["Long-acting","Ultralong-acting","Intermediate-acting","Short-acting"],a:1}
+]},
+{id:2,title:"Diagnosis of Pregnancy",questions:[
+{q:"What is the most important symptom of pregnancy?",o:["Nausea","Amenorrhea","Breast tenderness","Fatigue"],a:1},
+{q:"When do local examination signs of pregnancy start?",o:["2nd trimester","3rd trimester","1st trimester","At delivery"],a:2},
+{q:"When do abdominal examination signs of pregnancy appear?",o:["1st trimester","From the 2nd trimester","3rd trimester only","At labor"],a:1},
+{q:"What can be detected by abdominal examination regarding fetal pulse?",o:["Auscultation of fetal pulse","Palpation of fetal pulse","Inspection of fetal pulse","Percussion of fetal pulse"],a:1},
+{q:"What are Braxton Hicks contractions?",o:["True labor contractions","Contractions and relaxation during 3rd trimester","Contractions only in 1st trimester","Relaxation only during pregnancy"],a:1},
+{q:"At what gestational week is fetal heart sound first heard using Pinard stethoscope?",o:["16th week","18th week","20th week","24th week"],a:2},
+{q:"At what gestational week is fetal heart sound first heard using Sonicaid (Doppler)?",o:["8th week","10th week","12th week","16th week"],a:3},
+{q:"Amenorrhea can occur outside of pregnancy in which conditions?",o:["COC / Lactation / Chronic disease / Emotional stress","Only in pregnancy","Only in menopause","Only in thyroid disease"],a:0},
+{q:"What are the causes of bleeding during pregnancy?",o:["Only threatened abortion","Only normal pregnancy","Normal / Threatened abortion","Only ectopic pregnancy"],a:2},
+{q:"Relaxation + Contraction in the 3rd trimester indicates what?",o:["Labor pains","Braxton Hicks","Preterm labor","Placental abruption"],a:1},
+{q:"Relaxation + Contraction in the 1st trimester indicates what sign?",o:["Hegar's sign","Palmer sign","Chadwick's sign","Goodell's sign"],a:1},
+{q:"What is the first sure sign of pregnancy?",o:["Inspection of fetal movements","Palpation of fetal parts","Auscultation of heart sounds","Positive pregnancy test"],a:0},
+{q:"What is the second sure sign of pregnancy?",o:["Inspection of fetal movements","Palpation of fetal parts","Auscultation of heart sounds","Ultrasound confirmation"],a:1},
+{q:"What is the third sure sign of pregnancy?",o:["Inspection of fetal movements","Palpation of fetal parts","Auscultation of heart sounds","Fetal kick count"],a:2}
+]},
+{id:3,title:"Anemia in Pregnancy",questions:[
+{q:"What is the minimal level of hemoglobin (Hb) to allow delivery?",o:["5 gm/dl","7 gm/dl","9 gm/dl","10 gm/dl"],a:1},
+{q:"How much iron is needed daily during pregnancy?",o:["15 mg/dl","20 mg/dl","27 mg/dl","40 mg/dl"],a:2},
+{q:"What type of anemia is seen in chronic infection?",o:["Microcytic hypochromic anemia","Macrocytic anemia","Normocytic normochromic anemia","Sideroblastic anemia"],a:2},
+{q:"How does iron absorption change during pregnancy?",o:["Remains constant","Decreases","Differs/changes","Stops completely"],a:2},
+{q:"Is there a threshold for iron absorption?",o:["No, absorption is unlimited","Yes, there is a threshold","Only in first trimester","Only in third trimester"],a:1},
+{q:"What is the normal iron store in the body?",o:["100 mg","250 mg","500 mg","1000 mg"],a:2},
+{q:"In which type of anemia is folic acid given?",o:["Iron deficiency anemia","Megaloblastic anemia","Hemolytic anemia","Aplastic anemia"],a:1},
+{q:"What is the hemoglobin cutoff for anemia in pregnant women?",o:["< 12 g/dL","< 11 g/dL","< 10 g/dL","< 9 g/dL"],a:2},
+{q:"What is the hemoglobin cutoff for anemia in non-pregnant women?",o:["< 10 g/dL","< 11 g/dL","< 12 g/dL","< 13 g/dL"],a:2},
+{q:"What is the most common type of anemia in pregnancy?",o:["Folate deficiency anemia","Vitamin B12 deficiency anemia","Iron deficiency anemia (IDA)","Sickle cell anemia"],a:2},
+{q:"Why is iron deficiency anemia the most common in pregnancy?",o:["Due to poor diet only","Due to menstruation and pregnancy needs","Due to genetic factors","Due to chronic diseases"],a:1},
+{q:"What type of red blood cells are seen in iron deficiency anemia?",o:["Macrocytic normochromic","Normocytic normochromic","Microcytic hypochromic","Macrocytic hyperchromic"],a:2},
+{q:"What is the prophylactic dose of iron in pregnancy?",o:["15 mg","30 mg","60 mg","100 mg"],a:1},
+{q:"What type of anemia is folate deficiency anemia?",o:["Microcytic hypochromic","Normocytic normochromic","Macrocytic","Sideroblastic"],a:2},
+{q:"What are the fetal defects associated with folate deficiency anemia?",o:["IUGR","Preterm delivery","Neural tube defects","All of the above"],a:3},
+{q:"What is the prophylactic dose of folic acid for 4 months in normal pregnancy?",o:["0.1 mg","0.4 mg","1 mg","4 mg"],a:1},
+{q:"What is the increased dose of folic acid (4 mg) indicated for?",o:["All pregnant women","High risk for neural tube defects","Only diabetic mothers","Only mothers with previous miscarriage"],a:1},
+{q:"What is the basic problem in sickle cell anemia?",o:["Abnormal white blood cells","Abnormal hemoglobin","Abnormal platelets","Bone marrow failure"],a:1},
+{q:"What is the diagnostic test for sickle cell anemia?",o:["Complete blood count (CBC)","Hemoglobin electrophoresis","Peripheral blood smear","Bone marrow biopsy"],a:1},
+{q:"In which population is sickle cell anemia most common?",o:["Asian population","African population","European population","Native American population"],a:1}
+]},
+{id:4,title:"Labor & Delivery",questions:[
+{q:"What is the sure sign of labor onset?",o:["Regular uterine contractions","Rupture of membranes","Cervical effacement and dilation","Bloody show"],a:2},
+{q:"What is the normal biparietal diameter (BPD) of the fetal head?",o:["8.5 cm","9.0 cm","9.5 cm","10.0 cm"],a:2},
+{q:"What does anterior asynclitism mean?",o:["Sagittal suture near the sacral promontory","Sagittal suture near the pubic symphysis","Sagittal suture in the middle","No asynclitism present"],a:0},
+{q:"What is the most common female pelvis type?",o:["Android","Anthropoid","Platypelloid","Gynecoid"],a:3},
+{q:"What is the definition of normal labor?",o:["Labor occurring between 37-42 weeks with spontaneous onset, vertex presentation, and no complications","Labor occurring before 37 weeks","Labor occurring after 42 weeks","Labor requiring instrumental delivery"],a:0},
+{q:"What is the normal duration of the third stage of labor?",o:["Less than 5 minutes","Less than 10 minutes","Less than 30 minutes","Less than 60 minutes"],a:2},
+{q:"What is the main advantage of mediolateral episiotomy?",o:["Easier to repair","Less blood loss","Lower risk of sphincter damage and rectal involvement","Better cosmetic result"],a:2},
+{q:"What is the term for descent of the baby's head with relief of maternal breathing?",o:["Engagement","Lightening","Station","Flexion"],a:1},
+{q:"What is fetal position?",o:["Relation between fetal head and maternal spine","Relation between bony landmark of dependent part and maternal pelvis","Relation between fetal back and maternal abdomen","Relation between fetal heart and maternal pelvis"],a:1},
+{q:"What is the Schultz method?",o:["More surgical method of placental delivery","More physiological method of placental delivery","Method of fetal monitoring","Method of pain relief"],a:1},
+{q:"What marks the end of the first stage of labor?",o:["Onset of regular contractions","Rupture of membranes","Full cervical dilation and effacement","Delivery of the baby"],a:2},
+{q:"What is the gestational age range for normal labor?",o:["34-37 weeks","37-42 weeks","40-42 weeks","42-44 weeks"],a:1},
+{q:"When is episiotomy performed?",o:["At the beginning of second stage","When the head is visible at the introitus","After crowning","After delivery of the head"],a:2},
+{q:"What is the relationship between fetal station and the ischial spines?",o:["Above spines = positive station","At spines = 0 station","Below spines = negative station","Station is not related to ischial spines"],a:1}
+]},
+{id:5,title:"Cardiac Disease with Pregnancy",questions:[
+{q:"What is the most common obstetric cause for mortality?",o:["Hemorrhage","Sepsis","Preeclampsia","Eclampsia"],a:1},
+{q:"What is the most common non-obstetric cause of mortality in pregnancy?",o:["Respiratory disease","Central nervous system disorders","Cardiovascular system (CVS) disorders","Renal disease"],a:2},
+{q:"What are the most common cardiovascular disorders in pregnancy?",o:["Mitral stenosis and aortic regurgitation","Atrial septal defect (ASD) and ventricular septal defect (VSD)","Patent ductus arteriosus and coarctation of aorta","Tetralogy of Fallot and transposition of great vessels"],a:1},
+{q:"What is the status of cardiac function in Class 1 and Class 2 cardiac disease during pregnancy?",o:["Decompensated","Compensated","Severely compromised","Requires immediate surgery"],a:1},
+{q:"What is the status of cardiac function in Class 3 and Class 4 cardiac disease?",o:["Compensated","Decompensated","Normal cardiac function","Improved cardiac function"],a:1},
+{q:"At what gestational age does heart failure in pregnancy reach its greatest risk?",o:["20 weeks","24 weeks","28 weeks","32 weeks"],a:2},
+{q:"At what gestational age does a cardiac patient reach maximum risk?",o:["20 weeks","24 weeks","28 weeks","36 weeks"],a:2},
+{q:"When do cardiac changes start in pregnancy and when do they reach maximum?",o:["Start at 4th week, reach max at 20th week","Start at 8th week, reach max at 28th week","Start at 12th week, reach max at 32nd week","Start at 16th week, reach max at 36th week"],a:1},
+{q:"What is the correct order of critical periods for a cardiac patient?",o:["1st stage > 2nd stage > Postpartum > 1st-15 days postpartum","2nd stage > 1st stage > Postpartum > 1st-15 days postpartum","Postpartum > 2nd stage > 1st stage > 1st-15 days postpartum","1st-15 days > Postpartum > 2nd stage > 1st stage"],a:1},
+{q:"By how much does the resting pulse increase in pregnant women?",o:["5-10 beats/min","10-15 beats/min","15-20 beats/min","20-25 beats/min"],a:1},
+{q:"What is the most important diagnostic tool for cardiac patients in pregnancy?",o:["Chest X-ray","Electrocardiogram (ECG)","Echocardiography (Echo)","Cardiac catheterization"],a:2},
+{q:"What is tricuspid regurgitation during pregnancy considered as?",o:["A pathological finding requiring surgery","A normal finding during pregnancy","A sign of severe cardiac decompensation","An indication for termination"],a:1},
+{q:"What is the recommended management approach for cardiac patients in pregnancy?",o:["Individual obstetrician management","Team management","Cardiologist-only management","No special management needed"],a:1},
+{q:"What is the recommendation regarding termination of pregnancy in cardiac patients before 14 weeks?",o:["Proceed with pregnancy","Terminate the pregnancy","Wait until 20 weeks","Immediate cardiac surgery"],a:1},
+{q:"What is the recommendation regarding termination after 14 weeks?",o:["Terminate the pregnancy","Proceed with the pregnancy","Wait until third trimester","Plan for C-section at 28 weeks"],a:1},
+{q:"What is the anticoagulation protocol for the first 3 months in cardiac patients?",o:["Warfarin throughout","Heparin, then shift to warfarin, then LMWH","Aspirin only","No anticoagulation needed"],a:1},
+{q:"What is the antidote for heparin overdose?",o:["Vitamin K","Protamine sulfate","Fresh frozen plasma","Atropine"],a:1},
+{q:"When is Protamine sulfate typically administered in cardiac patients during labor?",o:["During the 1st stage of labor","During the 2nd stage of labor","After delivery","Before induction"],a:0},
+{q:"What analgesic is used during the 2nd stage of labor in cardiac patients?",o:["Morphine","Pethidine","Fentanyl","Tramadol"],a:1},
+{q:"What inhalational analgesic is used in the 2nd stage in cardiac patients?",o:["Halothane + O2","Nitrous oxide + O2","Sevoflurane + O2","Isoflurane + O2"],a:1},
+{q:"How long should a cardiac patient NOT be left alone during the 2nd stage?",o:["Not more than 10 minutes","Not more than 20 minutes","Not more than 30 minutes","Not more than 40 minutes"],a:1},
+{q:"What drug causes tonic uterine contraction and is contraindicated in cardiac patients?",o:["Oxytocin","Ergometrine","Misoprostol","Carboprost"],a:1},
+{q:"When should Ergometrine NOT be given to cardiac patients?",o:["After delivery","Before delivery","During the 1st stage","During the 2nd stage"],a:1},
+{q:"When CAN Ergometrine be given to cardiac patients?",o:["Before delivery","In cardiac patients with severe bleeding","During the 1st trimester","Prophylactically in all cardiac patients"],a:1},
+{q:"Why is Magnesium sulfate NOT used in hypertensive cardiac patients?",o:["It causes hypotension","It causes cardiotoxicity","It causes renal failure","It causes uterine atony"],a:1},
+{q:"What is the mortality rate in peripartum cardiomyopathy?",o:["5-15%","15-25%","25-50%","50-75%"],a:2},
+{q:"In which trimester is surgery preferably done in pregnant cardiac patients?",o:["1st trimester","2nd trimester","3rd trimester","Any trimester"],a:1}
+]},
+{id:6,title:"Thyroid Disorders & UTI in Pregnancy",questions:[
+{q:"What are the three main conditions discussed in pregnancy besides cardiac disease?",o:["Diabetes, hypertension, epilepsy","Thyroid disorders, UTI, embolism","Asthma, anemia, infections","Renal disease, liver disease, neurological disorders"],a:1},
+{q:"What causes stasis of urine in pregnancy?",o:["Estrogen hormone","Progesterone hormone","Human chorionic gonadotropin (hCG)","Prolactin hormone"],a:1},
+{q:"What causes compression in pregnancy leading to urinary stasis?",o:["Enlarged bladder","Enlarged uterus","Enlarged ovaries","Enlarged kidneys"],a:1},
+{q:"What happens to female immunity during pregnancy?",o:["Immunity increases","Immunity decreases","Immunity remains unchanged","Immunity fluctuates randomly"],a:1},
+{q:"What are the two causes of mechanical urinary obstruction in pregnancy?",o:["Double ureter and stone","Single ureter and infection","Hydronephrosis and cystitis","Tumor and stricture"],a:0},
+{q:"When should thyroid function be screened in pregnant women?",o:["In all pregnant women routinely","Only in women with risk factors","Only in the third trimester","Only after delivery"],a:1},
+{q:"What is the first risk factor for thyroid dysfunction screening?",o:["Family history of thyroid dysfunction","Previous pregnancy with thyroid dysfunction","Autoimmune disease","Diabetes"],a:1},
+{q:"What is the second risk factor for thyroid dysfunction screening?",o:["Previous pregnancy with thyroid dysfunction","Family history of thyroid dysfunction","Autoimmune disease","History of recurrent miscarriage"],a:1},
+{q:"What is the third risk factor?",o:["Diabetes","Autoimmune disease","History of recurrent miscarriage","Obesity"],a:1},
+{q:"What is the fourth risk factor?",o:["Autoimmune disease","Diabetes","Congenital anomalies","Advanced maternal age"],a:1},
+{q:"What is the fifth risk factor?",o:["Diabetes","History of recurrent miscarriage/preterm labor","Multiple pregnancies","Previous cesarean section"],a:1},
+{q:"What should be done if there are no risk factors for thyroid dysfunction?",o:["Screen thyroid function routinely","Do NOT screen thyroid function","Screen only TSH","Screen only free T4"],a:1}
+]},
+{id:7,title:"Hyperemesis Gravidarum (HEG)",questions:[
+{q:"What is the normal symptom of pregnancy related to vomiting?",o:["Hyperemesis gravidarum","Emesis gravidarum","Morning sickness with severe dehydration","Projectile vomiting"],a:1},
+{q:"What is the characteristic of normal vomiting in pregnancy?",o:["Recurrence throughout the day","Recurrence once/twice in the morning","Continuous vomiting for 24 hours","Vomiting only at night"],a:1},
+{q:"What does HEG affect in general?",o:["Only the stomach","General condition of the patient","Only the liver","Only the kidneys"],a:1},
+{q:"What is the most accepted theory for HEG etiology?",o:["Bacterial infection","Allergy to pregnancy hormones (HCG)","Psychological stress only","Food poisoning"],a:1},
+{q:"Which conditions are associated with increased HCG levels causing HEG?",o:["Vesicular mole (VM) & Multiple pregnancy","Singleton pregnancy only","Ectopic pregnancy","Missed abortion only"],a:0},
+{q:"What is the common factor in HEG etiology related to psychological causes?",o:["Depression","Psychic factors","Anxiety disorder","Bipolar disorder"],a:1},
+{q:"Which vitamin deficiencies are associated with HEG?",o:["Vitamin B12 and folate","Vitamin B1 (Thiamine) and B6 (Pyridoxine)","Vitamin C and D","Vitamin A and E"],a:1},
+{q:"How is HEG diagnosed?",o:["By blood test only","By ultrasound","By exclusion","By physical examination only"],a:2},
+{q:"What ends HEG (complication due to chronic starvation)?",o:["Dehydration","Acidosis","Hypoglycemia","Hypertension"],a:1},
+{q:"What is the relationship between vomiting and acidosis in HEG?",o:["Vomiting causes acidosis only","Acidosis causes vomiting only","Vomiting causes acidosis and acidosis causes vomiting (vicious cycle)","No relationship between them"],a:2},
+{q:"What is the first line treatment for mild cases of HEG?",o:["Hospital admission","Psychic support and timing of meals","Immediate IV fluids","Anti-emetic drugs"],a:1},
+{q:"What dietary advice is given for mild HEG cases?",o:["Three large meals","Small frequent meals","Fasting","Only liquids"],a:1},
+{q:"What is the principle regarding pharmacotherapy in HEG management?",o:["First choice treatment","Last choice","Never used","Only in severe cases"],a:1},
+{q:"Why should fats be decreased in HEG diet?",o:["To increase ketosis","To decrease ketosis","To increase acidosis","More lactate and ketoacidosis"],a:3},
+{q:"Why should carbohydrates be increased in HEG diet?",o:["For weight gain","For Kreb's cycle","For fat storage","For protein synthesis"],a:1},
+{q:"Which medication is a major teratogen (especially during organogenesis)?",o:["Thalidomide","Pyridoxine","Doxylamine","Metoclopramide"],a:0},
+{q:"Which medication is associated with vaginal malignancy?",o:["Thalidomide","Diethylstilbestrol","Promethazine","Ondansetron"],a:1},
+{q:"What is the first step in managing severe HEG?",o:["Give oral medications","Admit the patient to hospital","Send home with advice","Immediate surgery"],a:1},
+{q:"What is the second step in managing severe HEG?",o:["Start oral feeding","NPO (Nil per os - nothing by mouth)","Give solid food","Discharge patient"],a:1},
+{q:"What is the rate of glucose 5% infusion in severe HEG?",o:["1L / 4 hours","1L / 8 hours","1L / 12 hours","1L / 24 hours"],a:1},
+{q:"What is the rate of saline (NaCl) infusion in severe HEG?",o:["0.5L / 4 hours","0.5L / 8 hours","0.5L / 12 hours","0.5L / 24 hours"],a:2},
+{q:"What is the purpose of giving Ringer's lactate in severe HEG?",o:["To increase pH","To decrease pH","To maintain pH","No effect on pH"],a:2},
+{q:"What is given to correct acidosis in severe HEG?",o:["NaCl","NaHCO3 (Sodium bicarbonate)","KCl","CaCl2"],a:1},
+{q:"What route is preferred for anti-emetics in severe HEG?",o:["Oral","Suppositories or injections","Inhalation","Topical"],a:1},
+{q:"What is the route of administration for Cortigen B6?",o:["Oral","Intramuscular (IM)","Intravenous (IV)","Subcutaneous"],a:1},
+{q:"Which benzodiazepine can be used in HEG?",o:["Lorazepam","Diazepam","Alprazolam","Clonazepam"],a:1},
+{q:"What phase of HEG leads to complications?",o:["Early phase","Mild phase","Toxic phase","Recovery phase"],a:2}
+]},
+{id:8,title:"Immunization & Nutrition in Pregnancy",questions:[
+{q:"Which type of vaccines are considered safe in pregnancy?",o:["Live attenuated vaccines","Killed or inactivated organism vaccines","Toxoid vaccines only","mRNA vaccines only"],a:1},
+{q:"Which influenza vaccine is recommended for all pregnant women?",o:["Live attenuated influenza vaccine (LAIV)","Inactivated influenza vaccine","Only during first trimester","Only in high-risk pregnancies"],a:1},
+{q:"Which vaccine is recommended for all pregnant women irrespective of prior vaccination history?",o:["MMR","Tdap (Tetanus, diphtheria, pertussis)","Varicella","Polio"],a:1},
+{q:"What is the optimal timing for Tdap vaccination during pregnancy?",o:["First trimester (1-12 weeks)","Second trimester (13-26 weeks)","Between 27-36 weeks gestation","Only postpartum"],a:2},
+{q:"If Tdap is not administered during pregnancy, when should it be given?",o:["Not needed","Immediately postpartum","During next pregnancy","After 6 weeks postpartum"],a:1},
+{q:"Which hepatitis vaccine is safe in pregnancy?",o:["Hepatitis C","Hepatitis B","Hepatitis D","Hepatitis E"],a:1},
+{q:"Which other hepatitis vaccine is safe in pregnancy?",o:["Hepatitis C","Hepatitis A","Hepatitis D","Hepatitis E"],a:1},
+{q:"Pneumococcus vaccine in pregnancy is recommended for:",o:["All pregnant women","Only high-risk women","Only in third trimester","Only postpartum"],a:1},
+{q:"Meningococcus vaccine in pregnancy is indicated in:",o:["All pregnant women routinely","Unusual outbreaks","Only first trimester","Never in pregnancy"],a:1},
+{q:"Is typhoid vaccine routinely recommended in pregnancy?",o:["Yes, for all pregnant women","No, not routinely recommended","Only in first trimester","Only in third trimester"],a:1},
+{q:"Which type of vaccines are unsafe in pregnancy?",o:["Killed vaccines","Live attenuated organism vaccines","Subunit vaccines","Toxoid vaccines"],a:1},
+{q:"Which of the following is NOT a live attenuated vaccine contraindicated in pregnancy?",o:["MMR (measles, mumps, rubella)","Tetanus toxoid","Polio (oral)","Yellow fever"],a:1},
+{q:"MMR vaccine stands for:",o:["Meningitis, measles, rubella","Measles, mumps, rubella","Mumps, malaria, rabies","Measles, malaria, rotavirus"],a:1},
+{q:"Which live virus vaccine is specifically mentioned as contraindicated?",o:["Influenza","Varicella","Hepatitis B","Tetanus"],a:1},
+{q:"Which vaccine is indicated for all pregnant women?",o:["MMR","TT (Tetanus toxoid)","Varicella","Yellow fever"],a:1},
+{q:"Which vaccine is indicated after exposure to a rabid animal?",o:["MMR","Rabies vaccine","Varicella","Yellow fever"],a:1},
+{q:"What is the daily caloric requirement during pregnancy?",o:["1800 kilocalories","2000 kilocalories","2500 kilocalories","3000 kilocalories"],a:2},
+{q:"What is the daily protein requirement during pregnancy?",o:["40 gm","50 gm","60 gm","80 gm"],a:2},
+{q:"What is the daily iron requirement during pregnancy?",o:["20 gm","30 gm","40 gm","60 gm"],a:2},
+{q:"What is the daily folic acid requirement during pregnancy?",o:["200 mcg","400 mcg","600 mcg","800 mcg"],a:1},
+{q:"What is the daily calcium requirement during pregnancy?",o:["500 mg","800 mg","1000 mg","1500 mg"],a:2},
+{q:"What is the daily Vitamin A requirement during pregnancy?",o:["3000 I.U.","4000 I.U.","6000 I.U.","8000 I.U."],a:2}
+]},
+{id:9,title:"Physiological Changes During Pregnancy",questions:[
+{q:"The diaphragm is pushed upward by approximately:",o:["2 cm","4 cm","6 cm","8 cm"],a:1},
+{q:"The apex of the heart is heard during pregnancy at:",o:["3rd intercostal space","4th intercostal space outside mid-clavicular line","5th intercostal space","6th intercostal space"],a:1},
+{q:"The increase in heart rate at rest during pregnancy is:",o:["5-10 beats","10-15 beats","15-20 beats","20-25 beats"],a:1},
+{q:"Blood pressure during the 1st trimester is:",o:["Increased","Decreased","Normally unchanged","Highly variable"],a:2},
+{q:"Blood pressure during the 2nd trimester shows:",o:["Hypertension","Diastolic deficit","No change","Systolic increase"],a:1},
+{q:"Peripheral vascular resistance during pregnancy:",o:["Increases","Decreases","Remains unchanged","Fluctuates"],a:1},
+{q:"The decrease in peripheral vascular resistance is due to progesterone acting on:",o:["Arteries","Veins","Smooth muscle/relaxant hormone","Cardiac muscle"],a:2},
+{q:"Binding globulins in pregnancy:",o:["Decrease","Increase","Remain unchanged","Are absent"],a:1},
+{q:"Gastric emptying time during pregnancy:",o:["Decreases","Increases","Remains unchanged","Stops"],a:1},
+{q:"Gastric capacity during pregnancy:",o:["Increases","Decreases","Remains unchanged","Doubles"],a:1},
+{q:"Excessive salivation (Sialorrhea/Ptyalism) occurs due to:",o:["Estrogen","Progesterone","HCG","Prolactin"],a:1},
+{q:"Which physiological parameter remains UNCHANGED during pregnancy?",o:["Blood pressure","Respiratory rate","Heart rate","Cardiac output"],a:1},
+{q:"Blood pressure during pregnancy:",o:["Increases","Decreases","Remains unchanged","Increases then decreases"],a:1},
+{q:"Heart rate during pregnancy:",o:["Decreases","Increases","Remains unchanged","Becomes irregular"],a:1},
+{q:"Which coagulation factors increase during pregnancy?",o:["II, V, X","I, VII, VIII, IX, XI","III, VI, XII","IV, X, XIII"],a:1},
+{q:"Why does minute ventilation increase during pregnancy?",o:["Because respiratory rate increases","Because tidal volume increases while respiratory rate remains unchanged","Because both increase","Because oxygen consumption decreases"],a:1},
+{q:"All lung volumes DECREASE during pregnancy EXCEPT:",o:["Tidal volume (TV)","Residual volume","Vital capacity","Functional capacity"],a:0},
+{q:"Minute ventilation increases by approximately:",o:["30%","40%","50%","60%"],a:1},
+{q:"Blood gases during pregnancy show:",o:["Respiratory acidosis","Respiratory alkalosis","Metabolic acidosis","Metabolic alkalosis"],a:1},
+{q:"Colonic motility during pregnancy:",o:["Increases","Decreases","Remains unchanged","Stops"],a:1},
+{q:"RBC increases during pregnancy by approximately:",o:["20%","30%","40%","50%"],a:2},
+{q:"Plasma volume increases during pregnancy by approximately:",o:["40%","50%","60%","70%"],a:2},
+{q:"The physiological dilutional effect causes hemoglobin to drop to approximately:",o:["10 g/dL","11 g/dL","12 g/dL","13 g/dL"],a:2},
+{q:"Pathological dilutional effect occurs if hemoglobin drops below:",o:["9 g/dL","10.5 g/dL","11 g/dL","12 g/dL"],a:1},
+{q:"Estradiol is the predominant estrogen in:",o:["Pregnancy","Non-pregnant state","Postmenopausal women","Men"],a:1},
+{q:"Estriol is the predominant estrogen in:",o:["Non-pregnant state","Pregnancy","Postmenopausal women","Childhood"],a:1},
+{q:"Estrone is the predominant estrogen in:",o:["Pregnancy","Non-pregnant state","Postmenopausal women","Puberty"],a:2},
+{q:"The source of estriol is:",o:["Follicle","Placenta (from DHEAS)","Adipose tissue","Corpus luteum"],a:1},
+{q:"High HCG levels may indicate:",o:["Normal singleton pregnancy","Twin pregnancy or hydatidiform mole","Ectopic pregnancy","Missed abortion only"],a:1},
+{q:"Low HCG levels may indicate:",o:["Twin pregnancy","Abortion (threatened) or missed abortion","Molar pregnancy","Normal pregnancy"],a:1},
+{q:"The ureter during pregnancy becomes:",o:["Shortened and straight","Elongated and tortuous due to progesterone effect","Narrowed and constricted","Unchanged"],a:1},
+{q:"Ureteric changes are more prominent on which side?",o:["Left side","Right side","Both sides equally","Neither side"],a:1},
+{q:"Normal creatinine level during pregnancy is NOT:",o:["0.6 mg/dL","0.7 mg/dL","0.8 mg/dL","Greater than 0.8 mg/dL"],a:3},
+{q:"As GFR increases during pregnancy, there is:",o:["Increase in urea, creatinine, uric acid","Decrease in urea, creatinine, uric acid","No change","Increase in creatinine only"],a:1},
+{q:"Progesterone acts on breast:",o:["Ducts","Alveoli and lobules","Nipple only","Fat tissue"],a:1},
+{q:"Estrogen acts on breast:",o:["Alveoli and lobules","Ducts","Nipple only","Surrounding fat"],a:1},
+{q:"Oxytocin is responsible for:",o:["Milk production","Milk ejection","Breast development","Colostrum formation"],a:1},
+{q:"Prolactin is responsible for:",o:["Milk ejection","Milk production","Breast duct development","Uterine contractions"],a:1},
+{q:"The pituitary gland during pregnancy:",o:["Decreases in size","Increases in size, anterior lobe produces more prolactin","Remains unchanged","Is replaced by placenta"],a:1},
+{q:"All hormones during pregnancy:",o:["Decrease","Increase but their active form remains unchanged","Remain unchanged","Are produced only by placenta"],a:1},
+{q:"TSH during pregnancy:",o:["Decreases","Increases","Remains unchanged","Is not produced"],a:1},
+{q:"Total T3 and T4 during pregnancy:",o:["Decrease","Increase","Remain unchanged","Are not measurable"],a:1},
+{q:"Free T3 during pregnancy:",o:["Increases","Remains unchanged","Decreases","Triples"],a:1},
+{q:"Cortisol during pregnancy:",o:["Decreases","Increases","Remains unchanged","Is not produced"],a:1},
+{q:"Glycosuria in pregnancy:",o:["Never occurs","Can be found (abnormal finding)","Is always normal","Indicates diabetes"],a:1},
+{q:"HCG appears in circulation approximately:",o:["1-3 days after fertilization","6-10 days after fertilization","2 weeks after fertilization","4 weeks after fertilization"],a:1},
+{q:"After fertilization, HCG levels double every:",o:["12 hours","24 hours","48 hours","72 hours"],a:2},
+{q:"Peak of HCG occurs at:",o:["4-6 weeks","6-8 weeks","9-10 weeks","12-14 weeks"],a:2},
+{q:"Plateau of HCG occurs at:",o:["10-12 weeks","15-18 weeks","20-22 weeks","28-30 weeks"],a:2},
+{q:"Pregnancy test depends on detection of:",o:["Alpha subunit of HCG","Beta subunit of HCG","Complete HCG molecule","HCG fragments"],a:1},
+{q:"A positive pregnancy test requires HCG levels greater than:",o:["2 units","5 units","10 units","25 units"],a:1},
+{q:"HCG maintains the corpus luteum to secrete:",o:["Estrogen","Progesterone","Prolactin","Oxytocin"],a:1},
+{q:"HCG stimulates the:",o:["Maternal thyroid","Fetal adrenal glands","Maternal pancreas","Placental growth"],a:1},
+{q:"Pregnancy is diabetogenic due to:",o:["HPL only","HPL and insulinase","Estrogen only","Progesterone only"],a:1},
+{q:"Progesterone is thermogenic and causes:",o:["Excessive sweating and palmar erythema","Chills and pallor","No temperature changes","Hypothermia"],a:0},
+{q:"The 1st trimester ends at:",o:["12 weeks","14 weeks","16 weeks","20 weeks"],a:1},
+{q:"The 2nd trimester ends at:",o:["24 weeks","26 weeks + 6 days","27 weeks + 6 days","28 weeks"],a:2},
+{q:"The 3rd trimester is:",o:["24-40 weeks","28 weeks to 40 weeks","30-40 weeks","32-40 weeks"],a:1}
+]}
+];
+
+var S={};
+L.forEach(function(l){S[l.id]={};});
+
+function letters(){return['A','B','C','D'];}
+
+function buildSidebar(){
+  var sb=document.getElementById('sbbtns');
+  L.forEach(function(l,i){
+    var b=document.createElement('button');
+    b.className='lbtn'+(i===0?' active':'');
+    b.dataset.lid=l.id;
+    b.innerHTML='<span class="lnum">'+l.id+'</span><span style="flex:1">'+l.title+'</span><span class="lscore" id="ls-'+l.id+'"></span>';
+    b.addEventListener('click',function(){switchL(l.id);});
+    sb.appendChild(b);
+  });
+}
+
+function switchL(lid){
+  document.querySelectorAll('.lbtn').forEach(function(b){b.classList.remove('active');});
+  document.querySelector('.lbtn[data-lid="'+lid+'"]').classList.add('active');
+  document.querySelectorAll('.lsec').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('lsec-'+lid).classList.add('active');
+  updPb(lid);
+}
+
+function buildContent(){
+  var ca=document.getElementById('ca');
+  L.forEach(function(l){
+    var sec=document.createElement('div');
+    sec.className='lsec'+(l.id===1?' active':'');
+    sec.id='lsec-'+l.id;
+    sec.innerHTML=
+      '<div class="lhead">'+
+        '<h2><em>Lecture '+l.id+':</em> '+l.title+'</h2>'+
+        '<span class="mbadge">'+l.questions.length+' Questions</span>'+
+      '</div>'+
+      '<div class="pbwrap"><div class="pb" id="pb-'+l.id+'"></div></div>'+
+      '<div class="qarea">'+
+        '<div class="summary" id="sum-'+l.id+'">'+
+          '<div><div class="slabel">Score</div><div class="snum" id="sn-'+l.id+'">0</div><div class="spct" id="sp-'+l.id+'">of '+l.questions.length+'</div></div>'+
+          '<div class="sbreakdown">'+
+            '<div class="sbitem"><div class="sbnum sbc" id="sc-'+l.id+'">0</div><div class="sblbl">Correct</div></div>'+
+            '<div class="sbitem"><div class="sbnum sbw" id="sw-'+l.id+'">0</div><div class="sblbl">Wrong</div></div>'+
+          '</div>'+
+          '<button class="rbtn" onclick="resetL('+l.id+')">&#8635; Reset</button>'+
+        '</div>'+
+        '<div id="qs-'+l.id+'"></div>'+
+      '</div>';
+    ca.appendChild(sec);
+    buildQs(l);
+  });
+}
+
+function buildQs(l){
+  var c=document.getElementById('qs-'+l.id);
+  c.innerHTML='';
+  l.questions.forEach(function(q,qi){
+    var card=document.createElement('div');
+    card.className='qcard';
+    card.id='qc-'+l.id+'-'+qi;
+    var LL=letters();
+    var opts=q.o.map(function(opt,oi){
+      return '<button class="obtn" id="ob-'+l.id+'-'+qi+'-'+oi+'" onclick="answer('+l.id+','+qi+','+oi+')"><span class="oletter">'+LL[oi]+'</span>'+opt+'</button>';
+    }).join('');
+    card.innerHTML=
+      '<div class="qhdr"><span class="qnum">Q'+(qi+1)+'</span><span class="qtxt">'+q.q+'</span></div>'+
+      '<div class="opts">'+opts+'</div>'+
+      '<div class="fb" id="fb-'+l.id+'-'+qi+'"></div>';
+    c.appendChild(card);
+  });
+}
+
+function answer(lid,qi,chosen){
+  if(S[lid][qi]!==undefined)return;
+  var l=L.find(function(x){return x.id===lid;});
+  var correct=l.questions[qi].a;
+  var ok=chosen===correct;
+  S[lid][qi]={chosen:chosen,correct:ok};
+
+  var cb=document.getElementById('ob-'+lid+'-'+qi+'-'+chosen);
+  cb.className='obtn '+(ok?'ok':'bad');
+
+  if(!ok){
+    var corb=document.getElementById('ob-'+lid+'-'+qi+'-'+correct);
+    corb.className='obtn show';
+  }
+
+  for(var i=0;i<l.questions[qi].o.length;i++){
+    document.getElementById('ob-'+lid+'-'+qi+'-'+i).disabled=true;
+  }
+
+  var fb=document.getElementById('fb-'+lid+'-'+qi);
+  if(ok){
+    fb.textContent='✓ Correct!';
+    fb.className='fb ok';
+    document.getElementById('qc-'+lid+'-'+qi).classList.add('ok');
+  }else{
+    fb.textContent='✗ Incorrect — Correct answer: '+letters()[correct]+') '+l.questions[qi].o[correct];
+    fb.className='fb bad';
+    document.getElementById('qc-'+lid+'-'+qi).classList.add('bad');
+  }
+
+  updPb(lid);
+  updGlobal();
+}
+
+function updPb(lid){
+  var l=L.find(function(x){return x.id===lid;});
+  var ans=Object.keys(S[lid]).length;
+  var cor=Object.values(S[lid]).filter(function(v){return v.correct;}).length;
+  var wrong=ans-cor;
+  var pct=Math.round((ans/l.questions.length)*100);
+
+  document.getElementById('pb-'+lid).style.width=pct+'%';
+
+  if(ans>0){
+    document.getElementById('sum-'+lid).classList.add('vis');
+    document.getElementById('sn-'+lid).textContent=cor;
+    document.getElementById('sp-'+lid).textContent='of '+ans+' answered';
+    document.getElementById('sc-'+lid).textContent=cor;
+    document.getElementById('sw-'+lid).textContent=wrong;
+  }else{
+    document.getElementById('sum-'+lid).classList.remove('vis');
+  }
+
+  var ls=document.getElementById('ls-'+lid);
+  ls.textContent=ans>0?(cor+'/'+l.questions.length):'';
+}
+
+function updGlobal(){
+  var ta=0,tc=0;
+  L.forEach(function(l){
+    ta+=Object.keys(S[l.id]).length;
+    tc+=Object.values(S[l.id]).filter(function(v){return v.correct;}).length;
+  });
+  document.getElementById('ta').textContent=ta;
+  document.getElementById('tc').textContent=tc;
+}
+
+function resetL(lid){
+  S[lid]={};
+  var l=L.find(function(x){return x.id===lid;});
+  buildQs(l);
+  updPb(lid);
+  updGlobal();
+}
+
+(function(){
+  var total=L.reduce(function(s,l){return s+l.questions.length;},0);
+  document.getElementById('tq').textContent=total;
+  buildSidebar();
+  buildContent();
+})();
+</script>
+
+</body>
+</html>
